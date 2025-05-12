@@ -25,6 +25,14 @@ spring:
         format_sql: true
         show_sql: false  # p6spy가 대신 로그를 출력하므로 false로 설정
 
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: severance-consumer-group
+#      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
 # query logging
 logging:
   level:
