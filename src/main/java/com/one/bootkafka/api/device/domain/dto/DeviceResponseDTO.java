@@ -23,13 +23,13 @@ public class DeviceResponseDTO implements Serializable {
     private String deviceId;
 
     @Schema(description = "온도")
-    private Integer temperature;
+    private Float temperature;
 
     @Schema(description = "압력")
-    private Integer pressure;
+    private Float pressure;
 
     @Schema(description = "작동시간")
-    private Integer runHour;
+    private Float workingTime;
 
     @Schema(description = "기기상태")
     private DeviceStatus deviceStatus;

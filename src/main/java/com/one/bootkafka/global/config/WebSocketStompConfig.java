@@ -35,7 +35,8 @@ public class WebSocketStompConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws/device") // 클라이언트가 WebSocket에 연결하기 위한 엔드포인트 설정
-                .setAllowedOriginPatterns("*") // 모든 도메인의 요청을 허용
+//                .setAllowedOriginPatterns("*") // 모든 도메인의 요청을 허용
+                .setAllowedOriginPatterns("http://localhost:3000") // 특정 도메인의 요청을 허용
                 .withSockJS(); // SockJS를 사용가능하게 함
     }
 }

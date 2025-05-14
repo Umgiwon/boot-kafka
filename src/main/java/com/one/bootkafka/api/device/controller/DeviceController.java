@@ -34,7 +34,7 @@ public class DeviceController {
             @ApiResponse(responseCode = "500", description = "서버내부 오류발생", content = @Content(schema = @Schema(implementation = ExceptionMsg.class)))
     })
     @Operation(summary = "소켓 테스트", description = "소켓 테스트 API")
-    @MessageMapping("/messages/test")
+    @MessageMapping("/test")
     public BaseResponse<DeviceResponseDTO> socketTest(@RequestBody DeviceResponseDTO deviceResponseDTO) {
 
         messagingTemplate.convertAndSend("/sub/severance-data", deviceResponseDTO);
