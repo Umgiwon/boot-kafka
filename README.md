@@ -1,1 +1,1 @@
-# boot-kafka
+# Spring-boot 기반의 Kafka ~ WebSocket 으로 데이터를 전달하는 프로젝트
