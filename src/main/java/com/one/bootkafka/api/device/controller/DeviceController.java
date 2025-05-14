@@ -37,9 +37,8 @@ public class DeviceController {
     @MessageMapping("/messages/test")
     public BaseResponse<DeviceResponseDTO> socketTest(@RequestBody DeviceResponseDTO deviceResponseDTO) {
 
-        messagingTemplate.convertAndSend("/sub/severance-comp-data", deviceResponseDTO);
+        messagingTemplate.convertAndSend("/sub/severance-data", deviceResponseDTO);
 
         return BaseResponseFactory.success(deviceResponseDTO);
     }
-
 }

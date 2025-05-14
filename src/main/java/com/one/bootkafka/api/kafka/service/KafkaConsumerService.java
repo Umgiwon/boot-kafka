@@ -1,6 +1,7 @@
 package com.one.bootkafka.api.kafka.service;
 
 import com.one.bootkafka.api.device.service.DeviceService;
+import com.one.bootkafka.global.constant.KafkaConst;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -14,7 +15,7 @@ public class KafkaConsumerService {
 
     private final DeviceService deviceService;
 
-    @KafkaListener(topics = "severance-comp-data", groupId = "severance-consumer-group")
+    @KafkaListener(topics = KafkaConst.KAFKA_TOPIC, groupId = KafkaConst.KAFKA_GROUP_ID)
     public void consume(String message) {
         log.info("kafka 수신 메시지: {}", message);
 
