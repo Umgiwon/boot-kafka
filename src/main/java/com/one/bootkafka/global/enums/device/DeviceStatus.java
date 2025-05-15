@@ -6,8 +6,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Getter
 public enum DeviceStatus {
-    RUN_Y("가동중"),
-    RUN_N("작동중지")
+    RUNNING("가동중"),
+    STOP("작동중지")
     ;
 
     private final String status;
