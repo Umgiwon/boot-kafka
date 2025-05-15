@@ -10,4 +10,6 @@ public class KafkaConst {
     public static final String KAFKA_GROUP_ID = "comp";
     public static final String KAFKA_TOPIC = "severance-data";
     public static final String KAFKA_BROKER_SERVER = "localhost:9092";
+
+    public static final String DEVICE_INFO_FACTORY = "kafkaListenerContainerFactory";
 }
