@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import static com.one.bootkafka.global.constant.KafkaConst.KAFKA_TOPIC;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -14,13 +16,12 @@ public class kafkaProducerService {
 
     /**
      * 카프카 전송 테스트
-     * @param topic
      * @param deviceDTO
      * @return
      */
-    public DeviceDTO kafkaProducer(String topic, DeviceDTO deviceDTO) {
-        kafkaTemplate.send(topic, deviceDTO);
-        log.info("kafkaProducer - topic : {}, message : {}", topic, deviceDTO);
+    public DeviceDTO kafkaProducer(DeviceDTO deviceDTO) {
+        kafkaTemplate.send(KAFKA_TOPIC, deviceDTO);
+        log.info("kafkaProducer - topic : {}, message : {}", KAFKA_TOPIC, deviceDTO);
         return deviceDTO;
     }
 }

@@ -1,6 +1,5 @@
 package com.one.bootkafka;
 
-import com.one.bootkafka.api.kafka.service.KafkaProducerService;
 import com.one.bootkafka.global.constant.KafkaConst;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
