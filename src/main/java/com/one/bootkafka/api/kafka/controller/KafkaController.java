@@ -35,6 +35,6 @@ public class KafkaController {
     @Operation(summary = "카프카 테스트", description = "카프카 테스트 API")
     @PostMapping("/sendTest")
     public BaseResponse<DeviceDTO> sendMessage(@RequestBody DeviceDTO deviceDTO) {
-        return BaseResponseFactory.success(kafkaProducerService.kafkaProducer(KafkaConst.KAFKA_TOPIC, deviceDTO));
+        return BaseResponseFactory.success(kafkaProducerService.kafkaProducer(deviceDTO));
     }
 }

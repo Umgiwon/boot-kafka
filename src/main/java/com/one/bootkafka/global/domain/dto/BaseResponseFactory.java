@@ -1,6 +1,5 @@
 package com.one.bootkafka.global.domain.dto;
 
-import com.one.bootkafka.global.constant.ResponseMessageConst;
 import com.one.bootkafka.global.enums.common.SuccessHttpMethodCodeType;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.ObjectUtils;
@@ -13,6 +12,9 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+
+import static com.one.bootkafka.global.constant.ResponseMessageConst.NO_CONTENT;
+import static com.one.bootkafka.global.constant.ResponseMessageConst.SELECT_SUCCESS;
 
 /**
  * BaseResponse 반환값에 대한 처리 Class
@@ -51,12 +53,12 @@ public class BaseResponseFactory {
         List<T> content = page.getContent();
 
         int httpStatusCode = HttpStatus.OK.value();
-        String responseMessage = ResponseMessageConst.SELECT_SUCCESS;
+        String responseMessage = SELECT_SUCCESS;
 
         // 내용 없을 경우 noContent
         if(ObjectUtils.isEmpty(content)) {
             httpStatusCode = HttpStatus.NO_CONTENT.value();
-            responseMessage = ResponseMessageConst.NO_CONTENT;
+            responseMessage = NO_CONTENT;
         }
 
         return baseResponseBuilder(httpStatusCode, responseMessage, content.size(), content, new Pagination(page));
@@ -78,7 +80,7 @@ public class BaseResponseFactory {
      * @param <T>
      */
     public static <T> BaseResponse<T> noContent() {
-        return baseResponseBuilder(HttpStatus.NO_CONTENT.value(), ResponseMessageConst.NO_CONTENT, 0, null, null);
+        return baseResponseBuilder(HttpStatus.NO_CONTENT.value(), NO_CONTENT, 0, null, null);
     }
 
     /**
