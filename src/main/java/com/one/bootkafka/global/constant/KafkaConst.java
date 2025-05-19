@@ -12,4 +12,7 @@ public class KafkaConst {
     public static final String KAFKA_BROKER_SERVER = "localhost:9092";
 
     public static final String DEVICE_INFO_FACTORY = "kafkaListenerContainerFactory";
+
+
+    public static final String KAFKA_PARSED_TOPIC = "parsed-device-data";
 }

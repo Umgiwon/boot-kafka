@@ -27,4 +27,13 @@ public class KafkaConsumerService {
         // WebSocket 전송
         deviceService.sendSocket(deviceDTO);
     }
+
+    @KafkaListener(topics = KafkaConst.KAFKA_PARSED_TOPIC, groupId = KafkaConst.KAFKA_GROUP_ID, containerFactory = KafkaConst.DEVICE_INFO_FACTORY)
+    public void consume(DeviceDTO deviceDTO) {
+
+        log.info("consume - consume message : {}", deviceDTO);
+
+        // WebSocket 전송
+        deviceService.sendSocket(deviceDTO);
+    }
 }

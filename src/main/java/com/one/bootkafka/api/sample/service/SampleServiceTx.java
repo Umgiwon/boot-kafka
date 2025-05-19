@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -61,6 +62,13 @@ public class SampleServiceTx {
                 .forEach(savedSample -> savedSampleList.add(sampleEntityToDto(savedSample)));
 
         return savedSampleList;
+
+        /* 스트림을 사용하여 더 간단하게 처리 가능
+        return dtoList.stream()
+                .map(this::createSampleEntity)
+                .map(sampleRepository::save)
+                .map(this::sampleEntityToDto)
+                .collect(Collectors.toList());*/
     }
 
     /**
