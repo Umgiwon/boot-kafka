@@ -25,7 +25,7 @@ public class KafkaProducerConfig {
     /**
      * Producer 인스턴스를 생성하는 방식 정의 후 리턴
      * 안정성과 성능을 위한 설정 포함
-     * 
+     *
      * @return 설정된 ProducerFactory 인스턴스
      */
     @Bean
@@ -54,7 +54,7 @@ public class KafkaProducerConfig {
 
     /**
      * 직렬화된 메시지를 Kafka 브로커에 전송하는 역할
-     * 
+     *
      * @return 설정된 KafkaTemplate 인스턴스
      */
     @Bean

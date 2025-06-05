@@ -18,8 +18,7 @@ public enum ApiReturnCode {
     UNSUPPORTED_MEDIA_TYPE("지원하지 않는 미디어 타입입니다.", 415),
 
     /************** 5XX **************/
-    SERVER_ERROR("서버에서 오류가 발생했습니다.", 500)
-    ;
+    SERVER_ERROR("서버에서 오류가 발생했습니다.", 500);
 
     public static final String RETURN_CODE = "리턴 코드 구분";
 

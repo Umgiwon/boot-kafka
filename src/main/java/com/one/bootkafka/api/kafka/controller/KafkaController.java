@@ -2,7 +2,6 @@ package com.one.bootkafka.api.kafka.controller;
 
 import com.one.bootkafka.api.device.domain.dto.DeviceDTO;
 import com.one.bootkafka.api.kafka.service.KafkaProducerService;
-import com.one.bootkafka.global.constant.KafkaConst;
 import com.one.bootkafka.global.domain.dto.BaseResponse;
 import com.one.bootkafka.global.domain.dto.BaseResponseFactory;
 import com.one.bootkafka.global.exception.ExceptionMsg;

@@ -26,14 +26,15 @@ public class BaseResponseFactory {
 
     /**
      * 성공 시
+     *
      * @param data
-     * @return
      * @param <T>
+     * @return
      */
     public static <T> BaseResponse<T> success(T data) {
 
         // 내용 없을 경우 noContent
-        if(ObjectUtils.isEmpty(data)) {
+        if (ObjectUtils.isEmpty(data)) {
             return noContent();
         }
 
@@ -45,9 +46,10 @@ public class BaseResponseFactory {
 
     /**
      * 성공 시 (Paging 처리)
+     *
      * @param page
-     * @return
      * @param <T>
+     * @return
      */
     public static <T> BaseResponse<List<T>> success(Page<T> page) {
         List<T> content = page.getContent();
@@ -56,7 +58,7 @@ public class BaseResponseFactory {
         String responseMessage = SELECT_SUCCESS;
 
         // 내용 없을 경우 noContent
-        if(ObjectUtils.isEmpty(content)) {
+        if (ObjectUtils.isEmpty(content)) {
             httpStatusCode = HttpStatus.NO_CONTENT.value();
             responseMessage = NO_CONTENT;
         }
@@ -66,9 +68,10 @@ public class BaseResponseFactory {
 
     /**
      * 성공 시 (메시지 추가)
+     *
      * @param data
-     * @return
      * @param <T>
+     * @return
      */
     public static <T> BaseResponse<T> successWithMessage(T data, String message) {
         return baseResponseBuilder(HttpStatus.OK.value(), message, getSize(data), data, null);
@@ -76,8 +79,9 @@ public class BaseResponseFactory {
 
     /**
      * 데이터가 없을 경우에 대한 반환값
-     * @return
+     *
      * @param <T>
+     * @return
      */
     public static <T> BaseResponse<T> noContent() {
         return baseResponseBuilder(HttpStatus.NO_CONTENT.value(), NO_CONTENT, 0, null, null);
@@ -85,13 +89,14 @@ public class BaseResponseFactory {
 
     /**
      * 공통 BaseResponse Builder
+     *
      * @param code
      * @param message
      * @param size
      * @param data
      * @param pagination
-     * @return
      * @param <T>
+     * @return
      */
     private static <T> BaseResponse<T> baseResponseBuilder(int code, String message, int size, T data, Pagination pagination) {
         return BaseResponse.<T>builder()
@@ -110,19 +115,21 @@ public class BaseResponseFactory {
      * 컬렉션일 경우 컬렉션 사이즈
      * 페이지일 경우 페이지안의 컨텐츠 사이즈
      * 기타 1
+     *
      * @param data
      * @return
      */
     private static int getSize(Object data) {
-        if(ObjectUtils.isEmpty(data)) return 0;
-        if(data instanceof Collection<?>) return ((Collection<?>) data).size();
-        if(data instanceof Page<?> page) return page.getContent().size();
+        if (ObjectUtils.isEmpty(data)) return 0;
+        if (data instanceof Collection<?>) return ((Collection<?>) data).size();
+        if (data instanceof Page<?> page) return page.getContent().size();
 
         return 1;
     }
 
     /**
      * 요청 requestMethod에 맞는 Enum 반환
+     *
      * @return
      */
     private static SuccessHttpMethodCodeType getSuccessHttpMethodCodeType() {

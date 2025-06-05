@@ -28,7 +28,7 @@ public class KafkaConsumerService {
 
     /**
      * Kafka에서 원시 디바이스 데이터를 소비하고, 데이터베이스에 저장하며, WebSocket으로 전송
-     * 
+     *
      * @param deviceDTO Kafka에서 수신한 원시 디바이스 데이터
      */
     @KafkaListener(topics = KafkaConst.KAFKA_TOPIC, groupId = KafkaConst.KAFKA_GROUP_ID, containerFactory = KafkaConst.DEVICE_INFO_FACTORY)
@@ -54,13 +54,13 @@ public class KafkaConsumerService {
 
     /**
      * Kafka에서 파싱된 디바이스 데이터를 소비하고, 데이터베이스에 저장하며, WebSocket으로 전송
-     * 
+     *
      * @param parsedData Kafka에서 수신한 파싱된 디바이스 데이터
      */
     @KafkaListener(
-        topics = KafkaConst.KAFKA_PARSED_TOPIC, 
-        groupId = KafkaConst.KAFKA_GROUP_ID, 
-        containerFactory = KafkaConst.PARSED_DEVICE_INFO_FACTORY
+            topics = KafkaConst.KAFKA_PARSED_TOPIC,
+            groupId = KafkaConst.KAFKA_GROUP_ID,
+            containerFactory = KafkaConst.PARSED_DEVICE_INFO_FACTORY
     )
     public void consume(ParsedDeviceDataDTO parsedData) {
         try {
@@ -90,7 +90,7 @@ public class KafkaConsumerService {
     /**
      * ParsedDeviceDataDTO를 DeviceDTO로 변환
      * 정수 값을 적절한 스케일의 BigDecimal로 변환하여 정밀도 유지
-     * 
+     *
      * @param parsedData 파싱된 디바이스 데이터
      * @return DeviceDTO 객체
      */

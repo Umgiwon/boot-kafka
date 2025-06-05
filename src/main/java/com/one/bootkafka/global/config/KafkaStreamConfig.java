@@ -27,7 +27,7 @@ public class KafkaStreamConfig {
      * Kafka Streams 속성 설정
      * 스트림 처리를 위한 기본 설정값들을 정의
      * 안정성과 성능을 위한 설정 포함
-     * 
+     *
      * @return Kafka Streams 설정 속성
      */
     @Bean(name = "deviceStreamProps")
@@ -61,8 +61,8 @@ public class KafkaStreamConfig {
      * Kafka Streams 인스턴스 생성
      * 설정된 속성과 스트림 빌더를 사용하여 Kafka Streams 인스턴스를 생성
      * 스트림 상태 및 오류 처리를 위한 리스너 설정
-     * 
-     * @param props 스트림 설정 속성
+     *
+     * @param props   스트림 설정 속성
      * @param builder 스트림 토폴로지 빌더
      * @return 구성된 KafkaStreams 인스턴스
      */

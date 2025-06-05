@@ -3,12 +3,11 @@ package com.one.bootkafka.api.sample.repository;
 import com.one.bootkafka.api.sample.domain.dto.request.SampleListRequestDTO;
 import com.one.bootkafka.api.sample.domain.dto.response.QSampleResponseDTO;
 import com.one.bootkafka.api.sample.domain.dto.response.SampleResponseDTO;
-import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
@@ -16,6 +15,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 import static com.one.bootkafka.api.sample.domain.entity.QSample.sample;
 
@@ -28,44 +29,37 @@ public class SampleRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     /**
-     * Sample 단건 조회
-     * @param sampleSn
-     * @return
+     * Sample 상세 조회
+     *
+     * @param sampleSn 조회할 Sample 순번
+     * @return 조회된 Sample 응답 dto
      */
     public SampleResponseDTO getSample(Long sampleSn) {
-        SampleResponseDTO result;
-
-        result = queryFactory
-                .select(
-                        new QSampleResponseDTO(
-                                sample.sampleSn
-                                , sample.title
-                                , sample.content
-                        )
-                )
+        return queryFactory
+                .select(new QSampleResponseDTO(
+                        sample.sampleSn
+                        , sample.title
+                        , sample.content
+                ))
                 .from(sample)
                 .where(sample.sampleSn.eq(sampleSn))
                 .fetchOne();
-
-        return result;
     }
 
     /**
      * Sample 목록 조회
-     * @param dto
-     * @return
+     *
+     * @param dto      조회할 Sample 조건 dto
+     * @param pageable 페이징 조건
+     * @return 조회된 Sample 목록 응답 dto
      */
     public Page<SampleResponseDTO> getSampleList(SampleListRequestDTO dto, Pageable pageable) {
-        List<SampleResponseDTO> resultList;
-
-        resultList = queryFactory
-                .select(
-                        new QSampleResponseDTO(
-                                sample.sampleSn
-                                , sample.title
-                                , sample.content
-                        )
-                )
+        List<SampleResponseDTO> resultList = queryFactory
+                .select(new QSampleResponseDTO(
+                        sample.sampleSn
+                        , sample.title
+                        , sample.content
+                ))
                 .from(sample)
                 .where(pagingCondition(dto))
                 .offset(pageable.getOffset())
@@ -82,42 +76,41 @@ public class SampleRepositoryCustom {
         return PageableExecutionUtils.getPage(resultList, pageable, countQuery::fetchOne);
     }
 
-    /* ******************* 동적 쿼리를 위한 BooleanExpression *******************/
+    /* ==================== 동적 쿼리를 위한 BooleanExpression ==================== */
 
     /**
      * 페이징 처리시 조건절
-     * @param dto
-     * @return
+     *
+     * @param dto 조회할 Sample 조건 dto
+     * @return 페이징 처리시 조건절
      */
-    private BooleanBuilder pagingCondition(SampleListRequestDTO dto) {
-        BooleanBuilder builder = new BooleanBuilder();
-
-        if(dto.getTitle() != null) {
-            builder.and(eqTitle(dto.getTitle()));
-        }
-
-        if(dto.getContent() != null) {
-            builder.and(eqContent(dto.getContent()));
-        }
-
-        return builder;
+    private BooleanExpression pagingCondition(SampleListRequestDTO dto) {
+        return Stream.of(
+                        containsTitle(dto.getTitle()), // 제목
+                        containsContent(dto.getContent()) // 내용
+                )
+                .filter(Objects::nonNull)
+                .reduce(BooleanExpression::and)
+                .orElse(null);
     }
 
     /**
-     * Sample 조회 시 제목 비교
-     * @param title
-     * @return
+     * Sample 조회시 제목 비교
+     *
+     * @param title 조회할 제목
+     * @return 조회할 제목 조건절
      */
-    private BooleanExpression eqTitle(String title) {
-        return (!StringUtils.isEmpty(title)) ? sample.title.contains(title) : null;
+    private BooleanExpression containsTitle(String title) {
+        return StringUtils.isNotBlank(title) ? sample.title.contains(title) : null;
     }
 
     /**
-     * Sample 조회 시 내용 비교
-     * @param content
-     * @return
+     * Sample 조회시 내용 비교
+     *
+     * @param content 조회할 내용
+     * @return 조회할 내용 조건절
      */
-    private BooleanExpression eqContent(String content) {
-        return (!StringUtils.isEmpty(content)) ? sample.content.contains(content) : null;
+    private BooleanExpression containsContent(String content) {
+        return StringUtils.isNotBlank(content) ? sample.content.contains(content) : null;
     }
 }
