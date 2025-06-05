@@ -49,17 +49,17 @@ public class SampleController {
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "json", content = @Content(
                     examples = {
                             @ExampleObject(name = "저장 예제1", value = """
-                                      {
-                                          "title": "샘플 제목1",
-                                          "content": "샘플 내용1"
-                                      }
-                            """),
+                                              {
+                                                  "title": "샘플 제목1",
+                                                  "content": "샘플 내용1"
+                                              }
+                                    """),
                             @ExampleObject(name = "저장 예제2", value = """
-                                      {
-                                         "title": "샘플 제목2",
-                                          "content": "샘플 내용2"
-                                      }
-                            """)
+                                              {
+                                                 "title": "샘플 제목2",
+                                                  "content": "샘플 내용2"
+                                              }
+                                    """)
                     }
             ))
             @Valid @RequestBody SampleSaveRequestDTO dto
@@ -133,17 +133,17 @@ public class SampleController {
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "json", content = @Content(
                     examples = {
                             @ExampleObject(name = "수정 예제1", value = """
-                                      {
-                                          "title": "샘플 제목 수정1",
-                                          "content": "샘플 내용 수정1"
-                                      }
-                            """),
+                                              {
+                                                  "title": "샘플 제목 수정1",
+                                                  "content": "샘플 내용 수정1"
+                                              }
+                                    """),
                             @ExampleObject(name = "수정 예제2", value = """
-                                      {
-                                         "title": "샘플 제목 수정2",
-                                          "content": "샘플 내용 수정 2"
-                                      }
-                            """)
+                                              {
+                                                 "title": "샘플 제목 수정2",
+                                                  "content": "샘플 내용 수정 2"
+                                              }
+                                    """)
                     }
             ))
             @RequestBody @Valid SampleUpdateRequestDTO dto

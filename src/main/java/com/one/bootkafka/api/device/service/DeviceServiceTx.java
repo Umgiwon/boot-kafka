@@ -8,8 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-
 /**
  * 트랜잭션 디바이스 작업을 위한 서비스
  */
@@ -23,7 +21,7 @@ public class DeviceServiceTx {
 
     /**
      * 디바이스 데이터를 데이터베이스에 저장
-     * 
+     *
      * @param deviceDTO 저장할 디바이스 데이터
      * @return 저장된 Device 엔티티
      */

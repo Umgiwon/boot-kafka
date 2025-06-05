@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.one.bootkafka.api.device.domain.dto.ParsedDeviceDataDTO;
 import com.one.bootkafka.global.constant.KafkaConst;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KeyValue;
@@ -14,9 +15,7 @@ import org.apache.kafka.streams.kstream.Produced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-import jakarta.annotation.PostConstruct;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -49,7 +48,7 @@ public class DeviceStreamProcessor {
 
     /**
      * 디바이스 데이터 처리를 위한 Kafka Stream 토폴로지를 생성하고 구성
-     * 
+     *
      * @param builder 토폴로지를 생성하기 위한 StreamsBuilder
      * @return 구성된 KStream 인스턴스
      */
@@ -57,30 +56,30 @@ public class DeviceStreamProcessor {
     public KStream<String, byte[]> deviceStreamTopology(StreamsBuilder builder) {
         // 입력 토픽에서 바이트 배열 스트림 생성
         KStream<String, byte[]> stream = builder.stream(
-            INPUT_TOPIC, 
-            Consumed.with(Serdes.String(), Serdes.ByteArray())
+                INPUT_TOPIC,
+                Consumed.with(Serdes.String(), Serdes.ByteArray())
         );
 
         // 바이트 배열을 JSON으로 변환하고 디바이스 ID를 키로 설정
         KStream<String, String> processedStream = stream
-            .map((key, value) -> {
-                String jsonValue = parseBytesToJson(value);
-                String newKey = extractDeviceIdFromJson(jsonValue);
-                return KeyValue.pair(newKey, jsonValue);
-            });
+                .map((key, value) -> {
+                    String jsonValue = parseBytesToJson(value);
+                    String newKey = extractDeviceIdFromJson(jsonValue);
+                    return KeyValue.pair(newKey, jsonValue);
+                });
 
         // 처리된 스트림을 출력 토픽으로 전송
         processedStream.to(
-            OUTPUT_TOPIC, 
-            Produced.with(Serdes.String(), Serdes.String())
+                OUTPUT_TOPIC,
+                Produced.with(Serdes.String(), Serdes.String())
         );
 
         // 주기적으로 처리 통계 로깅
         processedStream.foreach((key, value) -> {
             long count = processedMessageCount.incrementAndGet();
             if (count % 100 == 0) {
-                log.info("[KafkaStreams] 처리 통계 - 총 메시지: {}, 오류: {}", 
-                    count, errorMessageCount.get());
+                log.info("[KafkaStreams] 처리 통계 - 총 메시지: {}, 오류: {}",
+                        count, errorMessageCount.get());
             }
         });
 
@@ -89,7 +88,7 @@ public class DeviceStreamProcessor {
 
     /**
      * JSON 문자열에서 디바이스 ID 추출
-     * 
+     *
      * @param json 파싱된 JSON 문자열
      * @return 디바이스 ID 또는 오류 시 "unknown"
      */
@@ -110,7 +109,7 @@ public class DeviceStreamProcessor {
     /**
      * Modbus RTU 프로토콜의 원시 바이트 배열 데이터를 JSON 문자열로 파싱
      * KOS-500 프로토콜 참조 가이드 기반
-     * 
+     *
      * @param bytes Modbus RTU의 원시 바이트 배열
      * @return 파싱된 데이터의 JSON 문자열 표현
      */
@@ -175,20 +174,20 @@ public class DeviceStreamProcessor {
 
     /**
      * JSON 오류 메시지 생성
-     * 
+     *
      * @param errorMessage 오류 메시지
      * @return 오류 정보가 포함된 JSON 문자열
      */
     private String createErrorJson(String errorMessage) {
         try {
             return objectMapper.writeValueAsString(Map.of(
-                "error", "parse_failed",
-                "message", errorMessage,
-                "timestamp", LocalDateTime.now()
+                    "error", "parse_failed",
+                    "message", errorMessage,
+                    "timestamp", LocalDateTime.now()
             ));
         } catch (Exception e) {
             // 기본 형식으로 폴백
-            return String.format("{\"error\":\"parse_failed\", \"message\":\"%s\", \"timestamp\":\"%s\"}", 
+            return String.format("{\"error\":\"parse_failed\", \"message\":\"%s\", \"timestamp\":\"%s\"}",
                     errorMessage.replace("\"", "\\\""), LocalDateTime.now());
         }
     }

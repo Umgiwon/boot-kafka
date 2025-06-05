@@ -3,7 +3,9 @@ package com.one.bootkafka.global.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
-import org.springframework.web.socket.config.annotation.*;
+import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
+import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
+import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
 /**
  * STOMP 설정 파일
@@ -16,6 +18,7 @@ public class WebSocketStompConfig implements WebSocketMessageBrokerConfigurer {
 
     /**
      * 메시지 브로커 옵션 구성
+     *
      * @param config
      */
     @Override
@@ -30,6 +33,7 @@ public class WebSocketStompConfig implements WebSocketMessageBrokerConfigurer {
 
     /**
      * 엔드포인트 등록 및 SockJS 폴백 옵션 구성 (WebSocket을 지원하지 않는 브라우저에서도 SockJS를 통해 WebSocket 기능을 사용할 수 있게 함)
+     *
      * @param registry
      */
     @Override

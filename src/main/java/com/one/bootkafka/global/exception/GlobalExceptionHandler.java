@@ -17,11 +17,9 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
-import org.springframework.web.multipart.support.MissingServletRequestPartException;
 import org.springframework.web.server.UnsupportedMediaTypeStatusException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -42,6 +40,7 @@ public class GlobalExceptionHandler {
 
     /**
      * RuntimeException 발생시 처리 핸들러
+     *
      * @param ex
      * @return
      */
@@ -62,6 +61,7 @@ public class GlobalExceptionHandler {
 
     /**
      * IllegalAccessException 발생시 처리 핸들러
+     *
      * @param ex
      * @return
      */
@@ -82,6 +82,7 @@ public class GlobalExceptionHandler {
 
     /**
      * request body의 argument validation 처리 핸들러 (@valid, @validated 어노테이션)
+     *
      * @param ex
      * @return
      */
@@ -105,6 +106,7 @@ public class GlobalExceptionHandler {
 
     /**
      * Constraint Violdation Exception 처리 핸들러 (custom 어노테이션)
+     *
      * @param ex
      * @return
      */
@@ -126,6 +128,7 @@ public class GlobalExceptionHandler {
 
     /**
      * parameter 데이터 type이 일치하지 않을 때 처리 핸들러 (IllegalArgumentException의 하위)
+     *
      * @param ex
      * @return
      */
@@ -148,6 +151,7 @@ public class GlobalExceptionHandler {
 
     /**
      * missing parameter 발생 시 처리 핸들러
+     *
      * @param ex
      * @return
      */
@@ -167,6 +171,7 @@ public class GlobalExceptionHandler {
 
     /**
      * BusinessException 발생 시 처리 핸들러
+     *
      * @param ex
      * @return
      */
@@ -186,6 +191,7 @@ public class GlobalExceptionHandler {
 
     /**
      * NoHandlerFoundException 발생 시 처리 핸들러
+     *
      * @param request
      * @param ex
      * @return
@@ -207,6 +213,7 @@ public class GlobalExceptionHandler {
     /**
      * HttpRequestMethodNotSupportedException 발생 시 처리 핸들러
      * http 메소드 오류
+     *
      * @param request
      * @param ex
      * @return
@@ -228,6 +235,7 @@ public class GlobalExceptionHandler {
     /**
      * HttpMessageNotReadableException 발생 시 처리 핸들러
      * 클라이언트가 요청 본문을 잘못 전달한 경우
+     *
      * @param request
      * @param ex
      * @return
@@ -250,6 +258,7 @@ public class GlobalExceptionHandler {
     /**
      * UnsupportedMediaTypeStatusException 발생 시 처리 핸들러
      * 서버가 지원하지 않는 미디어 타입일 경우
+     *
      * @param request
      * @param ex
      * @return
@@ -271,6 +280,7 @@ public class GlobalExceptionHandler {
 
     /**
      * HttpMediaTypeNotSupportedException 발생 시 처리 핸들러
+     *
      * @param request
      * @param ex
      * @return

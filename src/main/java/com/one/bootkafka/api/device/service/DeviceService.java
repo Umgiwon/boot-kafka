@@ -16,15 +16,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class DeviceService {
 
+    // 디바이스 데이터를 위한 WebSocket 토픽
+    private static final String DEVICE_DATA_TOPIC = "/sub/device-data";
     // WebSocket 메시징 템플릿
     private final SimpMessagingTemplate messagingTemplate;
 
-    // 디바이스 데이터를 위한 WebSocket 토픽
-    private static final String DEVICE_DATA_TOPIC = "/sub/device-data";
-
     /**
      * WebSocket을 통해 클라이언트에게 디바이스 데이터 전송
-     * 
+     *
      * @param deviceDTO 전송할 디바이스 데이터
      */
     public void sendSocket(DeviceDTO deviceDTO) {

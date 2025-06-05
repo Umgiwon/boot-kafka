@@ -31,10 +31,22 @@ import java.util.Map;
 @Configuration
 public class KafkaConsumerConfig {
 
+    private static ErrorHandlingDeserializer<ParsedDeviceDataDTO> getParsedDeviceDataDTOErrorHandlingDeserializer() {
+        JsonDeserializer<ParsedDeviceDataDTO> jsonDeserializer = new JsonDeserializer<>(ParsedDeviceDataDTO.class);
+        jsonDeserializer.setRemoveTypeHeaders(false);
+        jsonDeserializer.addTrustedPackages("com.one.bootkafka.api.device.domain.dto");
+        jsonDeserializer.setUseTypeMapperForKey(true);
+
+        // 역직렬화 오류 처리를 위한 ErrorHandlingDeserializer 래핑
+        ErrorHandlingDeserializer<ParsedDeviceDataDTO> errorHandlingDeserializer =
+                new ErrorHandlingDeserializer<>(jsonDeserializer);
+        return errorHandlingDeserializer;
+    }
+
     /**
      * DeviceDTO 형태의 메시지를 역직렬화할 ConsumerFactory 생성 후 설정
      * 안정성과 성능을 위한 설정 포함
-     * 
+     *
      * @return 설정된 ConsumerFactory 인스턴스
      */
     @Bean
@@ -46,8 +58,8 @@ public class KafkaConsumerConfig {
         jsonDeserializer.setUseTypeMapperForKey(true);
 
         // 역직렬화 오류 처리를 위한 ErrorHandlingDeserializer 래핑
-        ErrorHandlingDeserializer<DeviceDTO> errorHandlingDeserializer = 
-            new ErrorHandlingDeserializer<>(jsonDeserializer);
+        ErrorHandlingDeserializer<DeviceDTO> errorHandlingDeserializer =
+                new ErrorHandlingDeserializer<>(jsonDeserializer);
 
         Map<String, Object> config = new HashMap<>();
 
@@ -74,7 +86,7 @@ public class KafkaConsumerConfig {
 
     /**
      * ParsedDeviceDataDTO 형태의 메시지를 역직렬화할 ConsumerFactory 생성 후 설정
-     * 
+     *
      * @return 설정된 ConsumerFactory 인스턴스
      */
     @Bean
@@ -104,22 +116,10 @@ public class KafkaConsumerConfig {
         return new DefaultKafkaConsumerFactory<>(config, new StringDeserializer(), errorHandlingDeserializer);
     }
 
-    private static ErrorHandlingDeserializer<ParsedDeviceDataDTO> getParsedDeviceDataDTOErrorHandlingDeserializer() {
-        JsonDeserializer<ParsedDeviceDataDTO> jsonDeserializer = new JsonDeserializer<>(ParsedDeviceDataDTO.class);
-        jsonDeserializer.setRemoveTypeHeaders(false);
-        jsonDeserializer.addTrustedPackages("com.one.bootkafka.api.device.domain.dto");
-        jsonDeserializer.setUseTypeMapperForKey(true);
-
-        // 역직렬화 오류 처리를 위한 ErrorHandlingDeserializer 래핑
-        ErrorHandlingDeserializer<ParsedDeviceDataDTO> errorHandlingDeserializer =
-            new ErrorHandlingDeserializer<>(jsonDeserializer);
-        return errorHandlingDeserializer;
-    }
-
     /**
      * Kafka 메시지 처리 중 오류 발생 시 사용할 에러 핸들러
      * 지수 백오프를 사용하여 재시도 간격을 점진적으로 증가시킴
-     * 
+     *
      * @return 설정된 에러 핸들러
      */
     @Bean
@@ -143,7 +143,7 @@ public class KafkaConsumerConfig {
 
     /**
      * DeviceDTO를 위한 Kafka Consumer 설정 정의
-     * 
+     *
      * @return 설정된 Kafka 리스너 컨테이너 팩토리
      */
     @Bean(name = KafkaConst.DEVICE_INFO_FACTORY)
@@ -167,7 +167,7 @@ public class KafkaConsumerConfig {
 
     /**
      * ParsedDeviceDataDTO를 위한 Kafka Consumer 설정 정의
-     * 
+     *
      * @return 설정된 Kafka 리스너 컨테이너 팩토리
      */
     @Bean(name = KafkaConst.PARSED_DEVICE_INFO_FACTORY)

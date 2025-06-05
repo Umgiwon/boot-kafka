@@ -24,6 +24,7 @@ public class SampleService {
 
     /**
      * Sample 단건 조회
+     *
      * @param sampleSn
      * @return
      */
@@ -34,6 +35,7 @@ public class SampleService {
 
     /**
      * Sample 목록 조회
+     *
      * @param dto
      * @return
      */

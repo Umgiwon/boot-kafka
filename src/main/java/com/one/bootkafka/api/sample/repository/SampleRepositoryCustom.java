@@ -29,6 +29,7 @@ public class SampleRepositoryCustom {
 
     /**
      * Sample 단건 조회
+     *
      * @param sampleSn
      * @return
      */
@@ -52,6 +53,7 @@ public class SampleRepositoryCustom {
 
     /**
      * Sample 목록 조회
+     *
      * @param dto
      * @return
      */
@@ -86,17 +88,18 @@ public class SampleRepositoryCustom {
 
     /**
      * 페이징 처리시 조건절
+     *
      * @param dto
      * @return
      */
     private BooleanBuilder pagingCondition(SampleListRequestDTO dto) {
         BooleanBuilder builder = new BooleanBuilder();
 
-        if(dto.getTitle() != null) {
+        if (dto.getTitle() != null) {
             builder.and(eqTitle(dto.getTitle()));
         }
 
-        if(dto.getContent() != null) {
+        if (dto.getContent() != null) {
             builder.and(eqContent(dto.getContent()));
         }
 
@@ -105,6 +108,7 @@ public class SampleRepositoryCustom {
 
     /**
      * Sample 조회 시 제목 비교
+     *
      * @param title
      * @return
      */
@@ -114,6 +118,7 @@ public class SampleRepositoryCustom {
 
     /**
      * Sample 조회 시 내용 비교
+     *
      * @param content
      * @return
      */
