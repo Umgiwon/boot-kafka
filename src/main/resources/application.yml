@@ -30,8 +30,6 @@ spring:
     consumer:
       group-id: comp
       auto-offset-reset: earliest
-      properties:
-        spring.json.trusted.packages: "*"
     listener:
       missing-topics-fatal: false
 

@@ -41,7 +41,7 @@ public class Device extends BaseEntity {
     private BigDecimal workingTime;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "DEVICE_STATUS", nullable = false)
+    @Column(name = "DEVICE_STATUS", length = 10, nullable = false)
     @Comment("기기상태")
     private DeviceStatus deviceStatus;
 
