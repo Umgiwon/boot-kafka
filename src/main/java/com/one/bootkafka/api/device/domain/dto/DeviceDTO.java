@@ -33,8 +33,7 @@ public class DeviceDTO implements Serializable {
     private BigDecimal workingTime;
 
     @Schema(description = "기기상태", example = "RUNNING")
-//    private DeviceStatus deviceStatus;
-    private BigDecimal deviceStatus;
+    private DeviceStatus deviceStatus;
 
     @Schema(description = "시간", example = "2025-05-15T14:35:00")
     private LocalDateTime timeStamp;

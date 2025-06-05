@@ -8,8 +8,8 @@ import lombok.RequiredArgsConstructor;
 public class KafkaConst {
 
     public static final String KAFKA_GROUP_ID = "comp";
-    public static final String KAFKA_TOPIC = "severance-data";
-    public static final String KAFKA_BROKER_SERVER = "localhost:9092";
+    public static final String KAFKA_TOPIC = "modbus-data";
+    public static final String KAFKA_BROKER_SERVER = "192.168.219.51:9092";
 
     public static final String DEVICE_INFO_FACTORY = "kafkaListenerContainerFactory";
 

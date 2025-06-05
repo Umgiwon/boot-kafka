@@ -1,7 +1,7 @@
 package com.one.bootkafka.api.kafka.controller;
 
 import com.one.bootkafka.api.device.domain.dto.DeviceDTO;
-import com.one.bootkafka.api.kafka.service.kafkaProducerService;
+import com.one.bootkafka.api.kafka.service.KafkaProducerService;
 import com.one.bootkafka.global.constant.KafkaConst;
 import com.one.bootkafka.global.domain.dto.BaseResponse;
 import com.one.bootkafka.global.domain.dto.BaseResponseFactory;
@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/kafka")
 public class KafkaController {
 
-    private final kafkaProducerService kafkaProducerService;
+    private final KafkaProducerService kafkaProducerService;
 
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "성공", useReturnTypeSchema = true),
