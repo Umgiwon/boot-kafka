@@ -1,63 +1,53 @@
 package com.one.bootkafka.api.compressor.domain.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
+import com.one.bootkafka.global.domain.entity.BaseTimeEntity;
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.Comment;
 
-import java.time.LocalDateTime;
-
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Setter
 @Entity
 @Table(name = "COMPRESSOR_HISTORY")
-public class CompressorHistory {
+public class CompressorHistory extends BaseTimeEntity {
+
     @Id
     @Column(name = "HISTORY_SN", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Comment("이력 순번")
     private Long id;
 
-    @Size(max = 30)
-    @NotNull
     @Column(name = "COMP_ID", nullable = false, length = 30)
+    @Comment("컴프레셔 아이디")
     private String compId;
 
-    @Size(max = 50)
-    @NotNull
     @Column(name = "SCROLL_ID", nullable = false, length = 50)
+    @Comment("스크롤 아이디")
     private String scrollId;
 
-    @NotNull
-    @ColumnDefault("0")
+    @Builder.Default
     @Column(name = "IS_COMP_RUNNING", nullable = false)
+    @Comment("컴프레셔 작동 여부")
     private Boolean isCompRunning = false;
 
-    @NotNull
-    @ColumnDefault("0")
+    @Builder.Default
     @Column(name = "TEMPERATURE", nullable = false)
-    private Double temperature;
+    @Comment("온도")
+    private Double temperature = 0.0;
 
-    @NotNull
-    @ColumnDefault("0")
+    @Builder.Default
     @Column(name = "RUN_HOUR", nullable = false)
-    private Integer runHour;
+    @Comment("개별 누적 가동 시간")
+    private Integer runHour = 0;
 
-    @NotNull
-    @ColumnDefault("0")
+    @Builder.Default
     @Column(name = "IS_TRIP", nullable = false)
+    @Comment("트립 여부")
     private Boolean isTrip = false;
 
-    @Size(max = 255)
     @Column(name = "ERROR_REASON")
+    @Comment("에러 원인")
     private String errorReason;
-
-    @NotNull
-    @ColumnDefault("current_timestamp()")
-    @Column(name = "CREATED_DT", nullable = false)
-    private LocalDateTime createdDt;
-
 }

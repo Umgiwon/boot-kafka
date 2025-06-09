@@ -16,7 +16,7 @@ public class ScrollHistory extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "HISTORY_SN", nullable = false, updatable = false)
-    @Comment("순번")
+    @Comment("이력 순번")
     private Long id;
 
     @Column(name = "SCROLL_ID", nullable = false, updatable = false, length = 50)
