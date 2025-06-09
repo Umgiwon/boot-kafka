@@ -26,7 +26,7 @@ spring:
         show_sql: false  # p6spy가 대신 로그를 출력하므로 false로 설정
 
   kafka:
-    bootstrap-servers: 192.168.219.51:9092
+    bootstrap-servers: 192.168.219.217:9092
     consumer:
       group-id: comp
       auto-offset-reset: earliest

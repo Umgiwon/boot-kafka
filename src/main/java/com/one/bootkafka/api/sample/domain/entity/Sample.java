@@ -9,8 +9,8 @@ import org.hibernate.annotations.Comment;
 
 
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)   // Builder를 위한 생성자는 private
+@NoArgsConstructor(access = AccessLevel.PROTECTED)  // JPA 기본 생성자는 protected
 @Getter
 @Entity
 @Table(name = "TB_SAMPLE")

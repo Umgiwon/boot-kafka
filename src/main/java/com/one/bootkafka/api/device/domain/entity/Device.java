@@ -9,13 +9,12 @@ import org.hibernate.annotations.Comment;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 @Entity
 @Table(name = "TB_DEVICE")
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-@Getter
-@Setter
 public class Device extends BaseEntity {
 
     @Id

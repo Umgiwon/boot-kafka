@@ -12,7 +12,7 @@ public class KafkaConst {
 
     // Kafka 기본 설정
     public static final String KAFKA_GROUP_ID = "comp";
-    public static final String KAFKA_BROKER_SERVER = "192.168.219.51:9092";
+    public static final String KAFKA_BROKER_SERVER = "192.168.219.217:9092";
 
     // Kafka 토픽
     public static final String KAFKA_TOPIC = "modbus-data";
